@@ -52,8 +52,6 @@ function sendHeader(conn)
 end
 
 function toggle()
-
-    print("in toggle")
  
     if (gpio.read(pin1) == 1) then
         gpio.write(pin1, 0)
