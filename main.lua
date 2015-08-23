@@ -1,5 +1,6 @@
 ssid = 'Bunyawat'
 pwd = '1234509876'
+
 print("set up wifi mode")
 wifi.setmode(wifi.STATION) 
 wifi.sta.config(ssid, pwd)
@@ -20,7 +21,9 @@ tmr.alarm(0, DELAY_TIME, 1, function()
                tmr.alarm(0, DELAY_TIME, 1, function() 
                     tmr.stop(0)
                     print("WIFI connected...")
-                    dofile("blinking.lc")
+                    -- dofile("blinking.lc")
+                    -- dofile("hello_http.lua")
+                    dofile("control_led_http.lua")
                end) 
           else 
                print("Wifi setup time more than 10s, Please verify wifi.sta.config() function. Then re-download the file.")
