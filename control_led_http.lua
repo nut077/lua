@@ -1,6 +1,10 @@
 
 print("\ncontrol LED vie HTTP\n")
 print("\nformat http://192.168.0.18/write/3/0\n")
+print("\nformat http://192.168.0.18/write/3/1\n")
+print("\nformat http://192.168.0.18/write/4/0\n")
+print("\nformat http://192.168.0.18/write/4/1\n")
+print("\nformat http://192.168.0.18/read\n")
 
 
 
