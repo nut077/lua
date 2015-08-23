@@ -1,10 +1,10 @@
 
-print("\ncontrol LED vie HTTP\n")
-print("\nformat http://192.168.0.18/write/3/0\n")
-print("\nformat http://192.168.0.18/write/3/1\n")
-print("\nformat http://192.168.0.18/write/4/0\n")
-print("\nformat http://192.168.0.18/write/4/1\n")
-print("\nformat http://192.168.0.18/read\n")
+print("\ncontrol LED vie HTTP")
+print("format http://"..wifi.sta.getip().."/write/3/0")
+print("format http://"..wifi.sta.getip().."/write/3/1")
+print("format http://"..wifi.sta.getip().."/write/4/0")
+print("format http://"..wifi.sta.getip().."/write/4/1")
+print("format http://"..wifi.sta.getip().."/read")
 
 
 
