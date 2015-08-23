@@ -4,6 +4,7 @@ print("format http://"..wifi.sta.getip().."/write/3/0")
 print("format http://"..wifi.sta.getip().."/write/3/1")
 print("format http://"..wifi.sta.getip().."/write/4/0")
 print("format http://"..wifi.sta.getip().."/write/4/1")
+print("format http://"..wifi.sta.getip().."/toggle/200")
 print("format http://"..wifi.sta.getip().."/read")
 
 
@@ -12,6 +13,12 @@ pin1=3
 pin2=4
 gpio.mode(pin1,gpio.OUTPUT)
 gpio.mode(pin2,gpio.OUTPUT)
+
+
+function trunOffAll()
+    gpio.write(pin1, 0)
+    gpio.write(pin2, 0)
+end
 
 function split(s, delimiter)
     result = {};
@@ -44,11 +51,34 @@ function sendHeader(conn)
      conn:send("Connection: close\r\n\r\n")
 end
 
+function toggle()
+
+    print("in toggle")
+ 
+    if (gpio.read(pin1) == 1) then
+        gpio.write(pin1, 0)
+        gpio.write(pin2, 1)
+
+    else
+        gpio.write(pin1, 1)
+        gpio.write(pin2, 0)
+
+    end
+
+end
+
+
+trunOffAll()
 srv=net.createServer(net.TCP)
 srv:listen(80,function(conn)
     conn:on("receive",function(conn,payload)
       list=urlencode(payload)
+
+      
       if (list[2]=="write") then
+      
+        tmr.stop(0)
+        
         local pin = tonumber(list[3])
         --print("Pin: "..pin) 
         local status = tonumber(list[4])
@@ -58,6 +88,18 @@ srv:listen(80,function(conn)
         sendHeader(conn) 
         -- Response Content
         conn:send("{\"result\":\"ok\",\"digitalPin\": "..pin..", \"status\": "..gpio.read(pin).."}")
+      elseif (list[2]=="toggle") then
+
+        print("call toggle")
+      
+        -- Response Header
+        local delay_time = tonumber(list[3])
+
+        tmr.alarm(0, delay_time, 1, toggle)
+        
+        sendHeader(conn) 
+        -- Response Content
+        conn:send("{\"result\":\"ok\",\"toggle\": \"true\", \"delay\": "..tostring(delay_time).."}")
       elseif (list[2]=="read") then
         -- Response Header
         sendHeader(conn) 

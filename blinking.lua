@@ -1,9 +1,10 @@
 
-LED = 7
+LED = 3
 DELAY_TIME = 1000
 
-gpio.mode(LED, gpio.OUTPUT)
-tmr.alarm(0, DELAY_TIME, 1, function() 
+
+function blink()
+
     if (gpio.read(LED) == 1) then
         gpio.write(LED, 0)
         print("LED OFF")
@@ -11,4 +12,9 @@ tmr.alarm(0, DELAY_TIME, 1, function()
         gpio.write(LED, 1)
         print("LED ON")
     end
-end)
+
+end
+
+gpio.mode(LED, gpio.OUTPUT)
+tmr.alarm(0, DELAY_TIME, 1, blink)
+
