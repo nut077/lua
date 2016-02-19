@@ -35,7 +35,7 @@ local function wifi_start(list_aps)
 end
 
 function module.start()  
-  print("Configuring Wifi ...")
+  print("Configuring Wifi zzzzzzzzzzzz ")
   wifi.setmode(wifi.STATION);
   wifi.sta.getap(wifi_start)
 end

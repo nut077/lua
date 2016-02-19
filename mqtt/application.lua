@@ -6,7 +6,7 @@ m = nil
 
 -- Sends a simple ping to the broker
 local function send_ping()  
-    m:publish(config.ENDPOINT .. "ping","id=" .. config.ID,0,0)
+    m:publish(config.ENDPOINT .. "ping","id=" .. config.ID .. ":bunyawat",0,0)
     print("Publish to data endpoint")
     print(config.ENDPOINT .. "ping")
 end

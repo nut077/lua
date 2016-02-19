@@ -3,9 +3,10 @@
 local module = {}
 
 module.SSID = {}  
-module.SSID["Waraporn"] = "panpan2007"
+module.SSID["Bunyawat"] = "1234509876"
 
-module.HOST = "test.mosquitto.org"  
+-- module.HOST = "test.mosquitto.org" 
+module.HOST = "192.168.0.15"  
 module.PORT = 1883  
 module.ID = node.chipid()
 
