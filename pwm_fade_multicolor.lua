@@ -17,49 +17,78 @@ pwm.start(GREEN)
 pwm.start(BLUE)
 
 function led(r, g, b)
+
+    if r < 0 then r = 0 end
+    if g < 0 then g = 0 end
+    if b < 0 then b = 0 end
+    
     pwm.setduty(RED, r)
     pwm.setduty(GREEN, g)
     pwm.setduty(BLUE, b)
+
+    print(r .. " " .. g .. " " .. b) 
 end
 
-direc = 1
-color = 1
-i = 0
+
+direction = 1
+step = 1
+brightness = 512
+
+red_color = brightness;
+green_color = brightness;
+blue_color = brightness;
+
+MAX_BRIGHT = 512
+MIN_BRIGHT = 0
+BRIGHT_STEP = 30
 
 function fade() 
 
-    if color > 3 then
-        color = 1
+    if step == 1 then
+        red_color = MAX_BRIGHT
+        blue_color = MIN_BRIGHT
+        brightness = brightness - BRIGHT_STEP
+        green_color = brightness
+    elseif step == 2 then
+        red_color = MAX_BRIGHT
+        green_color = MIN_BRIGHT
+        brightness = brightness + BRIGHT_STEP
+        blue_color = brightness
+    elseif step == 3 then
+        green_color = MIN_BRIGHT
+        blue_color = MAX_BRIGHT
+        brightness = brightness - BRIGHT_STEP
+        red_color = brightness
+    elseif step == 4 then
+        red_color = MIN_BRIGHT
+        blue_color = MAX_BRIGHT
+        brightness = brightness + BRIGHT_STEP
+        green_color = brightness
+    elseif step == 5 then
+        red_color = MIN_BRIGHT
+        green_color = MAX_BRIGHT
+        brightness = brightness - BRIGHT_STEP
+        blue_color = brightness
+    elseif step == 6 then
+        green_color = MAX_BRIGHT
+        blue_color = MIN_BRIGHT
+        brightness = brightness + BRIGHT_STEP
+        red_color = brightness
     end
 
-    if direc == 1 then
-        if i < 500 then
-            i = i + 5
-        else
-            direc = 0
-             print("chang direction "..0)
-        end
-    else
-        if i > 0 then
-            i = i - 5
-        else
-            direc = 1
-            print("chang direction "..1)
-            color = color + 1
-            print(color)
+
+
+    if (brightness >= MAX_BRIGHT) or (brightness <= MIN_BRIGHT) then
+        step = step + 1
+        if step > 6 then
+            step = 1
         end
     end
-    
-    if color == 1 then
-        led(i,0,0)
-    elseif color == 2 then
-        led(0,i,0)
-    else
-        led(0,0,i)
-    end       
+
+    led(red_color, green_color, blue_color)
    
 end
 
-tmr.alarm(0, 50, 1, fade)
+tmr.alarm(0, 100, 1, fade)
 
 
