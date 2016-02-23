@@ -26,7 +26,7 @@ direc = 1
 color = 1
 i = 0
 
-function blink() 
+function fade() 
 
     if color > 3 then
         color = 1
@@ -60,6 +60,6 @@ function blink()
    
 end
 
-tmr.alarm(0, 50, 1, blink)
+tmr.alarm(0, 50, 1, fade)
 
 

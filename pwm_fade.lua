@@ -8,7 +8,7 @@ pwm.start(LED)
 
 direc = 1
 i = 0
-function blink() 
+function fade() 
     if direc == 1 then
         if i < 500 then
             i = i + 5
@@ -28,4 +28,4 @@ function blink()
 
 end
 
-tmr.alarm(0, 50, 1, blink)
+tmr.alarm(0, 50, 1, fade)
