@@ -2,20 +2,28 @@
 
 local module = {}  
 
-LED = 0
-gpio.mode(LED, gpio.OUTPUT)
+LED_A = 0
+gpio.mode(LED_A, gpio.OUTPUT)
 
+LED_B = 1
+pwm.stop(LED_B)
+pwm.setup(LED_B, 500, 0)
+pwm.start(LED_B)
 
 function blink(data)
 
     print("data: -" .. data .. "-")
     
     if ("led0/off" == data) then
-        gpio.write(LED, 1)
+        gpio.write(LED_A, 1)
         print("LED OFF")
-    else
-        gpio.write(LED, 0)
+    elseif ("led0/on" == data) then 
+        gpio.write(LED_A, 0)
         print("LED ON")
+    else 
+        range = string.sub(data, 6, -1)
+        print("LED PWM "..range)
+        pwm.setduty(LED_B, tonumber(range))
     end
 
 end
